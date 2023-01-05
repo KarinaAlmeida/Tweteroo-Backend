@@ -40,9 +40,25 @@ server.post("/tweets", (req, res) => {
     res.status(201).send("OK");
 });
 
+server.get("/tweets", (req, res) => {
+
+    const listaTweets = tweets.map(tweet => { 
+        let objetoUser= users.find(user=>user.username === tweet.username)
+       const novoTweet= {
+            username: tweet.username,
+            avatar: objetoUser.avatar,
+            tweet: tweet.tweet
+       }
+       return novoTweet
+    }
+    
+        )
+
+    res.send(listaTweets);
+});
 
 
 
 server.listen(PORT, () => {
      console.log(`Servidor rodando na porta: ${PORT}`)
-});
+})
