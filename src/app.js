@@ -27,9 +27,22 @@ server.post("/sign-up", (req, res) => {
     res.status(201).send("OK");
 });
 
+server.post("/tweets", (req, res) => {
+
+  let logado= users.find(e=>e.username === req.body.username)
+
+    if (logado ===undefined ) {
+        res.status(401).send("UNAUTHORIZED");  
+    return
+  }
+        
+    tweets.push(req.body)
+    res.status(201).send("OK");
+});
+
 
 
 
 server.listen(PORT, () => {
      console.log(`Servidor rodando na porta: ${PORT}`)
-})
+});
