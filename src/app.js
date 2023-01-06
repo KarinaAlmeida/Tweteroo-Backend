@@ -41,7 +41,7 @@ server.post("/tweets", (req, res) => {
 });
 
 server.get("/tweets", (req, res) => {
-
+    let tweets= [];
     const listaTweets = tweets.map((tweet, index) => { 
         let objetoUser= users.find(user=>user.username === tweet.username)
        const novoTweet= index <10 && {
