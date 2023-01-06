@@ -42,16 +42,17 @@ server.post("/tweets", (req, res) => {
 
 server.get("/tweets", (req, res) => {
 
-    const listaTweets = tweets.map(tweet => { 
+    const listaTweets = tweets.map((tweet, index) => { 
         let objetoUser= users.find(user=>user.username === tweet.username)
-       const novoTweet= {
+       const novoTweet= index <10 && {
             username: tweet.username,
             avatar: objetoUser.avatar,
             tweet: tweet.tweet
        }
        return novoTweet
     }
-    
+
+ 
         )
 
     res.send(listaTweets);
