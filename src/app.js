@@ -9,17 +9,17 @@ server.use(express.json())
 let PORT = 5000;
 
 let users =[
-    {
-        username: 'bobesponja', 
-        avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info" 
-    }
+    // {
+    //     username: 'bobesponja', 
+    //     avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info" 
+    // }
 ];
 
 let tweets = [
-    {
-      username: "bobesponja",
-      tweet: "eu amo o hub"
-    }
+    // {
+    //   username: "bobesponja",
+    //   tweet: "eu amo o hub"
+    // }
 ];
 
 server.post("/sign-up", (req, res) => {
@@ -36,29 +36,29 @@ server.post("/tweets", (req, res) => {
     return
   }
         
-    tweets.push(req.body)
+    tweets.unshift(req.body)
     res.status(201).send("OK");
 });
 
 server.get("/tweets", (req, res) => {
-    let tweets= [];
-    const listaTweets = tweets.map((tweet, index) => { 
-        let objetoUser= users.find(user=>user.username === tweet.username)
-       const novoTweet= index <10 && {
-            username: tweet.username,
-            avatar: objetoUser.avatar,
-            tweet: tweet.tweet
-       }
-       
-       return novoTweet;
+    const listaTweets= [];
+    let tam= tweets.length <10 ? tweets.length : 10
+    for (let i=0; i <tam; i++) {
+        const objetoUser= users.find(user=>user.username === tweets[i].username)
+        listaTweets.push(
+            {
+                username: tweets[i].username,
+                avatar: objetoUser.avatar,
+                 tweet: tweets[i].tweet
+
+            }
+        )
     }
 
- 
-        )
-        let tweetRecente= listaTweets.reverse();
+       
         
 
-    res.send(tweetRecente);
+    res.send(listaTweets);
 });
 
 
@@ -66,3 +66,6 @@ server.get("/tweets", (req, res) => {
 server.listen(PORT, () => {
      console.log(`Servidor rodando na porta: ${PORT}`)
 })
+
+
+
