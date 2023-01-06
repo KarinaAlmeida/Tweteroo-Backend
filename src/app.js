@@ -49,13 +49,16 @@ server.get("/tweets", (req, res) => {
             avatar: objetoUser.avatar,
             tweet: tweet.tweet
        }
-       return novoTweet
+       
+       return novoTweet;
     }
 
  
         )
+        let tweetRecente= listaTweets.reverse();
+        
 
-    res.send(listaTweets);
+    res.send(tweetRecente);
 });
 
 
